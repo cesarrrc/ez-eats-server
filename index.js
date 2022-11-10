@@ -17,8 +17,6 @@ const mailClient = nodemailer.createTransport({
   },
 });
 
-console.log(process.env.EMAIL_USER);
-
 app.get("/", (req, res) => {
   res.json("Hello World");
 });
@@ -39,10 +37,13 @@ app.post("/send-email", async (req, res) => {
         message: ${message}
       `,
     });
-    console.log(results);
     res.json({ status: "success", message: "You're message has been sent." });
   } catch (error) {
     console.log(error, "error!!!");
+    res.status(400).json({
+      status: "failure",
+      message: "There was an error processing your request.",
+    });
   }
 });
 
