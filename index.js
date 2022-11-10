@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
 const nodemailer = require("nodemailer");
 const app = express();
 
@@ -11,10 +12,12 @@ const port = process.env.PORT || 3330;
 const mailClient = nodemailer.createTransport({
   service: "Gmail.com",
   auth: {
-    user: "cesarcisneros99@gmail.com",
-    pass: "dwnieivwzzxnoxpj",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
+
+console.log(process.env.EMAIL_USER);
 
 app.get("/", (req, res) => {
   res.json("Hello World");
